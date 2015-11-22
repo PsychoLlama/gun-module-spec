@@ -1,21 +1,25 @@
 {
-  "name": "gun-module-spec",
-  "version": "1.0.0",
-  "description": "Gun module spec test suite",
-  "main": "config.js",
-  "scripts": {
-    "test": "jasmine"
-  },
-  "keywords": [
+	"name": "gun-module-spec",
+	"version": "1.0.0",
+	"description": "Gun module spec test suite",
+	"main": "spec/module.spec.js",
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/PsychoLlama/gun-module-spec.git"
+	},
+	"scripts": {
+		"test": "jasmine"
+	},
+	"keywords": [
     "gun",
     "module",
     "test",
     "spec",
     "suite"
   ],
-  "author": "Jesse Gibson <jesse@gundb.io> (http://techllama.com)",
-  "license": "MIT",
-  "devDependencies": {
-    "jasmine": "^2.3.2"
-  }
+	"author": "Jesse Gibson <jesse@gundb.io> (http://techllama.com)",
+	"license": "MIT",
+	"devDependencies": {
+		"jasmine": "^2.3.2"
+	}
 }
