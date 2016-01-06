@@ -2,13 +2,12 @@
 
 /*
 	if you don't use jasmine, you can
-	just set the "module" config by
-	passing in a new instance of your module.
+	automate everything by just setting
+	the "Gun" property in module.exports.
 
 	For example:
 
-	var Level = require('gun-level');
-	var module = new Level();
+	var Gun = require('gun-level');
 
 	Once you're done, run "npm test"
 	in this directory and we'll test
@@ -16,7 +15,9 @@
 */
 
 module.exports = {
-//	module: new (your module here),
+//	Gun: (the constructor),
 
-//	name: 'your module name here'
+//	options: (the options object to give it),
+
+//	name: 'your module name'
 };

@@ -1,38 +1,23 @@
+/*globals describe, it, expect, beforeEach, jasmine */
 /*jslint node: true */
-/*globals describe, it, expect, beforeEach, afterEach, beforeAll, afterAll, jasmine */
-'use strict';
 
-var spec, config = require('../config.js');
+function spec(name, Gun, options) {
+	'use strict';
 
-spec = function (config) {
-	return function () {
-		var scope, gun, test, timeout, log = console.log;
 
-		timeout = jasmine.DEFAULT_TIMEOUT_INTERVAL;
-		jasmine.DEFAULT_TIMEOUT_INTERVAL = 1000;
-
-		console.log = function () {};
-
+	return describe(name, function () {
+		var gun;
 
 		// Fresh instance each test
-		beforeEach(function (done) {
-			scope = Math.floor(Math.random() * 10e15);
+		beforeEach(function () {
+			var scope = Math.floor(
+				Math.random() * 10e15
+			);
 
-			gun = config.module
-				.get('gun spec test suite').set()
-				.path(scope).set({}, done);
+			gun = new Gun(options)
+				.get('gun module specification, ' + scope)
+				.path('test-path');
 		});
-
-
-		afterEach(function () {
-			gun.get('gun spec test suite').path(scope).put(null);
-		});
-
-		afterAll(function () {
-			console.log = log;
-			jasmine.DEFAULT_TIMEOUT_INTERVAL = timeout;
-		});
-
 
 		describe('put method', function () {
 
@@ -51,13 +36,15 @@ spec = function (config) {
 				});
 			});
 
-			it("should invoke the callback immediately " +
-				"after succeeding or failing",
+			it(
+				"should invoke the callback immediately after succeeding or failing",
+
 				function (done) {
 					gun.put({
 						key: 'new value'
 					}, done);
-				});
+				}
+			);
 
 			it("should be able to write without error", function (done) {
 				gun.put({
@@ -68,8 +55,9 @@ spec = function (config) {
 				});
 			});
 
-			it("should signal errors by sending an " +
-				"object into the error parameter",
+			it(
+				"should signal errors by sending an object into the error parameter",
+
 				function (done) {
 					gun.put({
 						key: 'new value'
@@ -79,10 +67,12 @@ spec = function (config) {
 						}
 						done();
 					});
-				});
+				}
+			);
 
-			it('should store error values in an "err" ' +
-				'property on the error argument',
+			it(
+				'should store error values in an "err" property on the error argument',
+
 				function (done) {
 					gun.put({
 						key: 'new value'
@@ -92,10 +82,12 @@ spec = function (config) {
 						}
 						done();
 					});
-				});
+				}
+			);
 
-			it('should signal success by sending ' +
-				'an object in the success parameter',
+			it(
+				'should signal success by sending an object in the success parameter',
+
 				function (done) {
 					gun.put({
 						key: 'new value'
@@ -105,10 +97,12 @@ spec = function (config) {
 						}
 						done();
 					});
-				});
+				}
+			);
 
-			it('should store the success status in ' +
-				'an "ok" property of the success parameter',
+			it(
+				'should store the success status in an "ok" property of the success parameter',
+
 				function (done) {
 					gun.put({
 						key: 'new value'
@@ -118,7 +112,8 @@ spec = function (config) {
 						}
 						done();
 					});
-				});
+				}
+			);
 
 		});
 
@@ -155,13 +150,21 @@ spec = function (config) {
 				});
 			});
 
-			it("should terminate the connection stream when it's finished", function (done) {
-				gun.get('get-test-key', done);
-			});
+			it(
+				"should terminate the connection stream when it's finished",
 
-			it("should terminate the object stream when it's finished", function (done) {
-				gun.get('get-test-key').val(done);
-			});
+				function (done) {
+					gun.get('get-test-key', done);
+				}
+			);
+
+			it(
+				"should terminate the object stream when it's finished",
+
+				function (done) {
+					gun.get('get-test-key').val(done);
+				}
+			);
 
 			it('should not throw an error for existing keys', function (done) {
 				gun.get('get-test-key', function (error) {
@@ -186,7 +189,7 @@ spec = function (config) {
 		describe('key method', function () {
 
 			beforeEach(function (done) {
-				gun.path('to data').set().path('hidden obscurely').put({
+				gun.path('to data').path('hidden obscurely').put({
 					prop: 'my context',
 					object: {
 						data: true,
@@ -197,26 +200,36 @@ spec = function (config) {
 
 
 
-			it('should persist the key name that points to the graph', function (done) {
-				gun.get('first key').path('prop').val(function (val) {
-					expect(val).toBe('my context');
-					done();
-				});
-			});
+			it(
+				'should persist the key name that points to the graph',
+
+				function (done) {
+					gun.get('first key').path('prop').val(function (val) {
+						expect(val).toBe('my context');
+						done();
+					});
+				}
+			);
 
 
-			it('should allow several keys to point to the same souls', function (done) {
-				gun.get('second key').path('prop').val(function (val) {
-					expect(val).toBe('my context');
-					done();
-				});
-			});
+			it(
+				'should allow several keys to point to the same souls',
 
-			it("should invoke the callback immediately " +
-				"after succeeding or failing",
+				function (done) {
+					gun.get('second key').path('prop').val(function (val) {
+						expect(val).toBe('my context');
+						done();
+					});
+				}
+			);
+
+			it(
+				"should invoke the callback immediately after succeeding or failing",
+
 				function (done) {
 					gun.key('key-test-name', done);
-				});
+				}
+			);
 
 			it("should not fail to persist keys", function (done) {
 				gun.key('key-test-name', function (err) {
@@ -225,8 +238,9 @@ spec = function (config) {
 				});
 			});
 
-			it("should signal errors by sending an " +
-				"object into the error parameter",
+			it(
+				"should signal errors by sending an object into the error parameter",
+
 				function (done) {
 					gun.key('key-test-name', function (error) {
 						if (error) {
@@ -234,10 +248,12 @@ spec = function (config) {
 						}
 						done();
 					});
-				});
+				}
+			);
 
-			it('should store error values in an "err" ' +
-				'property on the error argument',
+			it(
+				'should store error values in an "err" property on the error argument',
+
 				function (done) {
 					gun.key('key-test-name', function (error) {
 						if (error) {
@@ -245,10 +261,12 @@ spec = function (config) {
 						}
 						done();
 					});
-				});
+				}
+			);
 
-			it('should signal success by sending ' +
-				'an object in the success parameter',
+			it(
+				'should signal success by sending an object in the success parameter',
+
 				function (done) {
 					gun.key('key-test-name', function (error, success) {
 						if (!error) {
@@ -256,10 +274,12 @@ spec = function (config) {
 						}
 						done();
 					});
-				});
+				}
+			);
 
-			it('should store the success status in ' +
-				'an "ok" property of the success parameter',
+			it(
+				'should store the success status in an "ok" property of the success parameter',
+
 				function (done) {
 					gun.key('key-test-name', function (error, success) {
 						if (!error && success) {
@@ -267,15 +287,22 @@ spec = function (config) {
 						}
 						done();
 					});
-				});
+				}
+			);
 
 		});
 
-	};
-};
+	});
+}
 
-if (config.module) {
-	describe(config.name || '', spec(config));
+var config = require('../config.js');
+
+if (config.Gun) {
+	spec(
+		config.name,
+		config.Gun,
+		config.options
+	);
 }
 
 module.exports = spec;
