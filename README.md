@@ -1,7 +1,10 @@
-# Gun module spec
+# [UNMAINTAINED] Gun module spec
 Test your modules against [the specification](https://github.com/PsychoLlama/extending-gun/blob/master/wire.md)
 
 > **note:** these tests are written for gun v0.3
+
+## Maintenance Notice
+This library was a dumb idea and worked terribly. I'm no longer maintaining it.
 
 ## Getting Started
 In your terminal, run
